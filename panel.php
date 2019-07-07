@@ -22,22 +22,41 @@ if($_SESSION['username']==NULL)
   <body>
   <div class="container">
     <nav class="nav">
-        <a class="nav-link disabled">Bienvenid@ <?=$_SESSION['username']?></a>
+        <a class="nav-link " href="http://localhost/inventario/panel.php">Bienvenid@ <?=$_SESSION['username']?></a>
         <?php
         if($_SESSION['rol']=='admin')
         {
-            echo "<a class=\"nav-link active\" href=\"#\">Ingresar producto</a>
-            <a class=\"nav-link\" href=\"#\">Visualizar inventario</a>";
-        }
-        else{
-            echo "<a class=\"nav-link\" href=\"#\">Comprar producto</a>";
+            echo "<a class=\"nav-link active\" 
+            href=\"http://localhost/inventario/panel.php?boton=productos\">Ingresar producto</a>
+            <a class=\"nav-link\" 
+            href=\"http://localhost/inventario/panel.php?boton=ver_inventario\">Visualizar inventario</a>
+            <a class=\"nav-link\" 
+            href=\"http://localhost/inventario/panel.php?boton=ver_facturas\">Ver facturas</a>";
         }
         ?>
         <button type="button" class="btn btn-danger" onclick="location.href='index.php'">Cerrar sesión</button>
     </nav>
 
     <?php
-        include("productos.php");
+        if($_SESSION['rol']=='comprador'){
+          include("comprar.php");
+        }
+        if(isset($_GET['boton'])){
+          if($_GET['boton']=='productos'){
+            include("productos.php");
+          }
+          else if($_GET['boton']=='ver_inventario'){
+            include("ver_inventario.php");
+          }
+          else if($_GET['boton']=='ver_facturas'){
+            include("ver_facturas.php");
+          }
+          else{
+            echo "<h1>Seleccione una opción</h1>";
+          }
+        }
+        
+        
     ?>
     </div>
     

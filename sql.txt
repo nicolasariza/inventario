@@ -5,7 +5,7 @@ CREATE TABLE personas(
     NOMBRE VARCHAR(30) NOT NULL,
     APELLIDO VARCHAR(30) NOT NULL,
     USUARIO VARCHAR(30) NOT NULL,
-    CONTRASEÑA VARCHAR(30) NOT NULL,
+    PASS VARCHAR(30) NOT NULL,
     ROL VARCHAR(20) NOT NULL
 );
 
@@ -16,11 +16,18 @@ CREATE TABLE productos(
     lote VARCHAR(30) NOT NULL,
     fecha_vencimiento DATE NOT NULL,
     precio INT NOT NULL
-)
+);
 
--- CREATE TABLE factura{
---    id_factura INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
---    id_producto INT NOT NULL,
---    id_persona INT NOT NULL,
---    cantidad INT NOT NULL
---}
+CREATE TABLE factura(
+    id_factura INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    id_persona INT NOT NULL,
+    id_producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    total INT NOT NULL,
+    FOREIGN KEY (id_persona) REFERENCES personas(id_persona),
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+);
+
+INSERT INTO personas VALUES('','Nicolas','Ariza','near5', '12345', 'admin');
+INSERT INTO personas VALUES('','Juliana','Alarcon','jenga', 'jenga1', 'comprador');
+INSERT INTO productos VALUES('','Computador',10,1,'2020-07-04',3000000);
